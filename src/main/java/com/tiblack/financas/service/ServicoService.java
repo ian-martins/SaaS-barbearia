@@ -33,9 +33,7 @@ public class ServicoService {
         Optional<Servico> present = buscarServico(DTO.id());
         if(!present.isPresent()) return null;
         Servico servico = present.get();
-        if(DTO.descricao() != null && !DTO.descricao().isBlank()){
-
-        }
+        if(DTO.descricao() != null && !DTO.descricao().isBlank()) servico.setDescricao(DTO.descricao());
         return servicoRepository.save(servico);
     }
  
