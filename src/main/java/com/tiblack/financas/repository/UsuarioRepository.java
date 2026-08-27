@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.tiblack.financas.entity.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, UUID> {
-    Optional<Usuario> findByUsername(String nome);
+    Optional<Usuario> findByNome(String nome);
 }
