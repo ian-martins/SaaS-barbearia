@@ -4,14 +4,16 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import com.tiblack.financas.dto.cliente.ClienteResponseDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,14 +36,11 @@ public class Cliente {
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    @Column(name = "telefone", nullable = true)
+    @Column(name = "telefone", nullable = false)
     private String telefone;
 
-    @Column(name = "observacao", nullable = true)
+    @Column(name = "observacao", nullable = false)
     private String observacao;
-
-    @Column(name = "historico_atendimento", nullable = true)
-    private String histAtendimento;
 
     @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
@@ -57,6 +56,10 @@ public class Cliente {
     @PrePersist
     public void prePersist() {
         dataCriacao = LocalDateTime.now();
+    }
+
+    public ClienteResponseDTO response(){
+        return new ClienteResponseDTO(id, nome, telefone, observacao, dataCriacao);
     }
 
 }

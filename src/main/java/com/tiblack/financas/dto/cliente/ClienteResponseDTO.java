@@ -1,4 +1,4 @@
-package com.tiblack.financas.dto;
+package com.tiblack.financas.dto.cliente;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

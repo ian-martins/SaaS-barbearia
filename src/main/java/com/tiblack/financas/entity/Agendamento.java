@@ -3,6 +3,7 @@ package com.tiblack.financas.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.tiblack.financas.dto.agendamento.AgendamentoResponseDTO;
 import com.tiblack.financas.entity.enuns.StatusAgendamento;
 
 import jakarta.persistence.Column;
@@ -16,7 +17,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,7 +39,7 @@ public class Agendamento {
     private LocalDateTime dataHora;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "cliente_id", nullable = true)
     private Cliente cliente;
 
     @ManyToOne
@@ -51,4 +51,8 @@ public class Agendamento {
 
     @Enumerated(EnumType.STRING)
     private StatusAgendamento status;
+
+    public AgendamentoResponseDTO response() {
+        return new AgendamentoResponseDTO(id, dataHora, cliente.getNome(), servico.getDescricao(), status);
+    }
 }

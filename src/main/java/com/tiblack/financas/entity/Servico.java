@@ -2,6 +2,8 @@ package com.tiblack.financas.entity;
 
 import java.util.List;
 
+import com.tiblack.financas.dto.servico.ServicoResponseDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Servico {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false, nullable = false)
@@ -33,13 +35,13 @@ public class Servico {
     @Column(name = "valor")
     private float valor;
 
-    @Column(name = "observacao", nullable = true)
+    @Column(name = "observacao", nullable = false)
     private String observacao;
 
     @Column(name = "disponivel")
     private boolean disponivel;
 
-    @Column(name = "tempo_estimado")
+    @Column(name = "tempo_estimado", nullable = false)
     private String tempoEstimado;
 
     @OneToMany(mappedBy = "servico")
@@ -47,5 +49,9 @@ public class Servico {
 
     @OneToMany(mappedBy = "servico")
     private List<Atendimento> atendimento;
+    
+    public ServicoResponseDTO response(){
+        return new ServicoResponseDTO(id,descricao, valor,observacao,disponivel,tempoEstimado);
+    }
 
 }
