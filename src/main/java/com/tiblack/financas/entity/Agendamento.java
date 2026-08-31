@@ -53,6 +53,11 @@ public class Agendamento {
     private StatusAgendamento status;
 
     public AgendamentoResponseDTO response() {
-        return new AgendamentoResponseDTO(id, dataHora, cliente.getNome(), servico.getDescricao(), status);
+        return new AgendamentoResponseDTO(
+                id,
+                dataHora,
+                cliente != null ? cliente.getNome() : "Cliente não cadastrado", 
+                servico.getDescricao(),
+                status);
     }
 }

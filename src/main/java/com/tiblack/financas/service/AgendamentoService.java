@@ -28,17 +28,19 @@ public class AgendamentoService {
     }
 
     public AgendamentoResponseDTO salvarAgendamento(AgendamentoRequestDTO dto) {
-         
 
-        Agendamento agendamento = new Agendamento(
-                null,
-                dto.datahora(),
-                clienteService.buscarCliente(dto.cliente()).orElse(null),
-                servicoService.buscarServico(dto.servico()).get(),
-                null,
-                StatusAgendamento.AGENDADO);
+        Agendamento agendamento = new Agendamento(null, dto.datahora(), null,
+                servicoService.buscarServico(dto.servico()).get(), null, StatusAgendamento.AGENDADO);
+        try {
+            Optional<Cliente> cliente = clienteService.buscarCliente(dto.cliente());
+            agendamento.setCliente(cliente.get());
+            return agendamentoRepository.save(agendamento).response();
 
-        return agendamentoRepository.save(agendamento).response();
+        } catch (Exception e) {
+            agendamento = agendamentoRepository.save(agendamento);
+            return agendamento.response();
+        }
+
     }
 
     public List<AgendamentoResponseDTO> listarAgendamentos() {
