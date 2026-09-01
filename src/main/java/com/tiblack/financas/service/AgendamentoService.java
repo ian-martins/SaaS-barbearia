@@ -1,5 +1,8 @@
 package com.tiblack.financas.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +33,7 @@ public class AgendamentoService {
     public AgendamentoResponseDTO salvarAgendamento(AgendamentoRequestDTO dto) {
 
         Agendamento agendamento = new Agendamento(null, dto.datahora(), null,
-                servicoService.buscarServico(dto.servico()).get(), null, StatusAgendamento.AGENDADO);
+                servicoService.buscarServico(dto.servico()).get(), null,StatusAgendamento.AGENDADO);
         try {
             Optional<Cliente> cliente = clienteService.buscarCliente(dto.cliente());
             agendamento.setCliente(cliente.get());
@@ -40,7 +43,10 @@ public class AgendamentoService {
             agendamento = agendamentoRepository.save(agendamento);
             return agendamento.response();
         }
+    }
 
+    public Agendamento salvarAgendamento(Agendamento agendamento) {
+        return agendamentoRepository.save(agendamento);
     }
 
     public List<AgendamentoResponseDTO> listarAgendamentos() {
@@ -71,5 +77,17 @@ public class AgendamentoService {
             agendamento.setStatus(dto.status());
 
         return agendamentoRepository.save(agendamento).response();
+    }
+
+    public List<Agendamento> agendamentosPeriodo(LocalDate inicio, LocalDate fim) {
+        LocalDateTime dataInicio = inicio.atStartOfDay();
+        LocalDateTime dataFim = fim.atTime(LocalTime.MAX);
+
+        return agendamentoRepository.findByDataHoraBetween(dataInicio, dataFim);
+    }
+
+    public Agendamento setConcluido(Agendamento agendamento) {
+        agendamento.setStatus(StatusAgendamento.CONCLUIDO);
+        return salvarAgendamento(agendamento);
     }
 }

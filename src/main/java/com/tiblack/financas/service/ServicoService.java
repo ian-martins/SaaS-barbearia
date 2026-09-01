@@ -21,7 +21,7 @@ public class ServicoService {
 
     public ServicoResponseDTO salvarServico(ServicoRequestDTO dto) {
         Servico servico = new Servico(null, dto.descricao(), dto.valor(), dto.observacao(), true, dto.tempoEstimado(),
-                null, null);
+                null);
         servico = servicoRepository.save(servico);
         return servico.response();
     }

@@ -46,8 +46,9 @@ public class Agendamento {
     @JoinColumn(name = "servico_id", nullable = false)
     private Servico servico;
 
-    @OneToOne(mappedBy = "agendamento")
-    private Atendimento atendimento;
+    @OneToOne
+    @JoinColumn(name = "movimentacao_id")
+    private MovimentacaoFinanceira movimentacao;
 
     @Enumerated(EnumType.STRING)
     private StatusAgendamento status;
@@ -56,7 +57,7 @@ public class Agendamento {
         return new AgendamentoResponseDTO(
                 id,
                 dataHora,
-                cliente != null ? cliente.getNome() : "Cliente não cadastrado", 
+                cliente != null ? cliente.getNome() : "Cliente não cadastrado",
                 servico.getDescricao(),
                 status);
     }

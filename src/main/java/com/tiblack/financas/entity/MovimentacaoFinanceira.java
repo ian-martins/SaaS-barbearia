@@ -1,7 +1,6 @@
 package com.tiblack.financas.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import com.tiblack.financas.entity.enuns.TipoMovimentacao;
@@ -13,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,17 +27,20 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MovimentacaoFinanceira {
 
-    //Colunas
+    // Colunas
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    private BigDecimal valor;
+    private float valor;
     private String descricao;
-    private LocalDateTime dataHora;
-    
-    //Outros
+    private LocalDate data;
+
+    @OneToOne(mappedBy = "movimentacao")
+    private Agendamento agendamento;
+
+    // Outros
     @Enumerated(EnumType.STRING)
     private TipoMovimentacao tipo;
 

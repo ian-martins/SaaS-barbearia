@@ -47,9 +47,6 @@ public class Servico {
     @OneToMany(mappedBy = "servico")
     private List<Agendamento> agendamentos;
 
-    @OneToMany(mappedBy = "servico")
-    private List<Atendimento> atendimento;
-    
     public ServicoResponseDTO response(){
         return new ServicoResponseDTO(id,descricao, valor,observacao,disponivel,tempoEstimado);
     }

@@ -10,8 +10,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,9 +33,6 @@ public class Pagamento {
     private LocalDateTime dataPagamento;
 
     //Relacinameno com outras tabelas
-    @OneToOne
-    @JoinColumn(name = "atendimento_id", nullable = false)
-    private Atendimento atendimento;
 
     //Outros
     @Enumerated(EnumType.STRING)

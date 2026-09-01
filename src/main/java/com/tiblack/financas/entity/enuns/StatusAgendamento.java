@@ -6,7 +6,6 @@ package com.tiblack.financas.entity.enuns;
 public enum StatusAgendamento {
     AGENDADO,
     CONFIRMADO,
-    ATENDIMENTO,
     CONCLUIDO,
     CANCELADO,
     FALTOU

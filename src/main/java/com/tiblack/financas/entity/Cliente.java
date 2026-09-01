@@ -49,9 +49,6 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private List<Agendamento> agendamentos;
     
-    @OneToMany(mappedBy = "cliente")
-    private List<Atendimento> atendimento;
-    
     // Outros
     @PrePersist
     public void prePersist() {

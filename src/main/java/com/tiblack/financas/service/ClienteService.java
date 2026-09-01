@@ -23,7 +23,7 @@ public class ClienteService {
 
     public ClienteResponseDTO salvarCliente(ClienteRequestDTO dto) {
         Cliente cliente = new Cliente(null, dto.nome(), dto.telefone(), dto.observacao(), LocalDateTime.now(),
-                null, null);
+                null);
         return clienteRepository.save(cliente).response();
     }
 
